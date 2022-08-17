@@ -1,0 +1,25 @@
+#!/bin/bash
+
+service mysql stop 
+rpm -e --nodeps galera
+yum -y remove MariaDB-server MariaDB-client
+
+cat > "/etc/yum.repos.d/MariaDB.repo" <<END
+[mariadb]
+name = MariaDB
+baseurl = http://yum.mariadb.org/10.4/centos7-amd64
+gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgcheck=1
+END
+
+yum clean all
+yum -y install MariaDB-server MariaDB-client
+yum -y update
+
+sed -i 's/innodb_support_xa/#innodb_support_xa/g' /etc/my.cnf
+sed -i 's/mariadb-10.2/mariadb-10.4/g' /etc/my.cnf
+sed -i 's/innodb_buffer_pool_populate/#innodb_buffer_pool_populate/g' /etc/my.cnf
+
+systemctl enable mariadb
+service mysql start
+mysql_upgrade --force mysql
