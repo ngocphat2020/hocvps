@@ -556,22 +556,26 @@ sed -i 's/innodb_support_xa/#innodb_support_xa/g' /etc/my.cnf
 sed -i 's/mariadb-10.0/mariadb-10.7/g' /etc/my.cnf
 sed -i 's/innodb_buffer_pool_populate/#innodb_buffer_pool_populate/g' /etc/my.cnf
 
-echo "Thay database user root bang ngocphat de nang cao bao mat"
+# Random password for MySQL root account
+root_password=`date |md5sum |cut -c '14-30'`
+sleep 1
+# Random password for MySQL admin account
 # admin_password=`date |md5sum |cut -c '14-30'`
 admin_password="@ngocphat"
+'/usr/bin/mysqladmin' -u root password "$root_password"
+mysql -u root -p"$root_password" -e "GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' IDENTIFIED BY '$admin_password' WITH GRANT OPTION;"
+mysql -u root -p"$root_password" -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost')"
+mysql -u root -p"$root_password" -e "DELETE FROM mysql.user WHERE User=''"
+mysql -u root -p"$root_password" -e "DROP User '';"
+mysql -u root -p"$root_password" -e "DROP DATABASE test"
+mysql -u root -p"$root_password" -e "FLUSH PRIVILEGES"
 
-mysql <<EOF
-use mysql;
-FLUSH PRIVILEGES;
-CREATE USER 'ngocphat'@'localhost' IDENTIFIED BY '$admin_password';
-GRANT ALL PRIVILEGES ON *.* TO 'ngocphat'@'localhost' WITH GRANT OPTION;
-DROP USER 'root'@'localhost';
-DELETE FROM mysql.user WHERE User='';
-DELETE FROM mysql.user WHERE User='root';
-DROP USER '';
-DROP DATABASE test;
-FLUSH PRIVILEGES;
-EOF
+cat > "/root/.my.cnf" <<END
+[client]
+user=root
+password=$root_password
+END
+chmod 600 /root/.my.cnf
 
 systemctl restart mariadb.service
 
@@ -582,7 +586,7 @@ unzip -q administrator.zip && rm -f administrator.zip
 mv -f administrator/* .
 rm -rf administrator
 printf "admin:$(openssl passwd -apr1 $admin_password)\n" > /home/$server_name/private_html/hocvps/.htpasswd
-sed -i "s/rootpassword/$admin_password/g" /home/$server_name/private_html/hocvps/SQLManager.php
+sed -i "s/rootpassword/$root_password/g" /home/$server_name/private_html/hocvps/SQLManager.php
 
 # Server Info
 mkdir /home/$server_name/private_html/serverinfo/
@@ -721,7 +725,7 @@ server_name="$server_name"
 server_ip="$server_ip"
 admin_port="$admin_port"
 script_url="$script_url"
-mariadb_root_password="$admin_password"
+mariadb_root_password="$root_password"
 END
 chmod 600 /etc/hocvps/scripts.conf
 
