@@ -97,6 +97,7 @@ systemctl disable firewalld
 systemctl mask firewalld
 
 yum clean all
+yum makecache fast
 yum -y update
 
 # Install Nginx, PHP-FPM and modules
@@ -555,9 +556,9 @@ sed -i 's/innodb_support_xa/#innodb_support_xa/g' /etc/my.cnf
 sed -i 's/mariadb-10.0/mariadb-10.7/g' /etc/my.cnf
 sed -i 's/innodb_buffer_pool_populate/#innodb_buffer_pool_populate/g' /etc/my.cnf
 
-rm -f /var/lib/mysql/ib_logfile0
-rm -f /var/lib/mysql/ib_logfile1
-rm -f /var/lib/mysql/ibdata1
+#rm -f /var/lib/mysql/ib_logfile0
+#rm -f /var/lib/mysql/ib_logfile1
+#rm -f /var/lib/mysql/ibdata1
 
 
 echo "Thay database user root bang ngocphat de nang cao bao mat"
@@ -573,15 +574,15 @@ DROP USER 'root'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
-cat > "/root/.my.cnf" <<END
-[client]
-user=ngocphat
-password=$admin_password
-END
-chmod 600 /root/.my.cnf
+#cat > "/root/.my.cnf" <<END
+#[client]
+#user=ngocphat
+#password=$admin_password
+#END
+#chmod 600 /root/.my.cnf
 
 systemctl restart mariadb.service
-mysql_upgrade --force mysql
+#mysql_upgrade --force mysql
 
 # HocVPS Script Admin
 cd /home/$server_name/private_html/
