@@ -110,8 +110,7 @@ yum-config-manager --enable remi
 # yum-config-manager --enable remi-php74
 # Install PHP8.1
 yum-config-manager --enable remi-php81
-# yum -y install nginx php-fpm php-common php-gd php-mysqlnd php-pdo php-xml php-mbstring php-mcrypt php-curl php-opcache php-cli php-pecl-zip php-bcmath
-yum -y install nginx php-fpm php-common php-gd php-mysqlnd php-pdo php-xml php-mbstring php-mcrypt php-curl php-cli php-pecl-zip php-bcmath
+yum -y install nginx php-fpm php-common php-gd php-mysqlnd php-pdo php-xml php-mbstring php-mcrypt php-curl php-opcache php-cli php-pecl-zip php-bcmath
 
 # Install MariaDB
 yum -y install MariaDB-server MariaDB-client
@@ -234,7 +233,7 @@ END
 
 # Zend Opcache
 wget -q https://raw.github.com/amnuts/opcache-gui/master/index.php -O /home/$server_name/private_html/op.php
-cat > /etc/php.d/*opcache*.ini <<END
+cat > /etc/php.d/10-opcache.ini <<END
 zend_extension=opcache
 opcache.enable=1
 opcache.enable_cli=1
