@@ -105,11 +105,11 @@ yum -y update
 # Enable Remi Repo
 # yum-config-manager --enable remi
 
-yum-config-manager --disable 'remi-php*'
+# yum-config-manager --disable 'remi-php*'
 # Install PHP7.4
 # yum-config-manager --enable remi-php74
 # Install PHP8.1
-yum-config-manager --enable remi-php81
+yum-config-manager --enable remi-php80
 yum -y install nginx php-fpm php-common php-gd php-mysqlnd php-pdo php-xml php-mbstring php-mcrypt php-curl php-opcache php-cli php-pecl-zip php-bcmath
 
 # Install MariaDB
@@ -227,8 +227,8 @@ mail.add_x_header = Off
 max_input_nesting_level = 128
 max_input_vars = 2000
 mysqlnd.net_cmd_buffer_size = 16384
-always_populate_raw_post_data=-1
-disable_functions=shell_exec
+always_populate_raw_post_data = -1
+disable_functions = shell_exec
 END
 
 # Zend Opcache
