@@ -103,13 +103,13 @@ yum -y update
 # Install Nginx, PHP-FPM and modules
 
 # Enable Remi Repo
-# yum-config-manager --enable remi
+yum-config-manager --enable remi
 
 # yum-config-manager --disable 'remi-php*'
 # Install PHP7.4
 # yum-config-manager --enable remi-php74
 # Install PHP8.1
-yum-config-manager --enable remi-php80
+yum-config-manager --enable remi-php81
 yum -y install nginx php-fpm php-common php-gd php-mysqlnd php-pdo php-xml php-mbstring php-mcrypt php-curl php-opcache php-cli php-pecl-zip php-bcmath
 
 # Install MariaDB
