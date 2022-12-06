@@ -107,9 +107,9 @@ yum-config-manager --enable remi
 
 # yum-config-manager --disable 'remi-php*'
 # Install PHP7.4
-yum-config-manager --enable remi-php74
+# yum-config-manager --enable remi-php74
 # Install PHP8.1
-# yum-config-manager --enable remi-php81
+yum-config-manager --enable remi-php81
 yum -y install nginx php-fpm php-common php-gd php-mysqlnd php-pdo php-xml php-mbstring php-mcrypt php-curl php-opcache php-cli php-pecl-zip php-bcmath
 
 # Install MariaDB
@@ -214,27 +214,27 @@ elif [[ "$server_ram_total" -gt '4194304' ]]; then
 fi
 
 cat > "/etc/php.d/00-hocvps-custom.ini" <<END
-date.timezone = Asia/Ho_Chi_Minh
-max_execution_time = 180
-short_open_tag = On
-realpath_cache_size = $php_realpathlimit
-realpath_cache_ttl = $php_realpathttl
-memory_limit = $php_memorylimit
-upload_max_filesize = $php_uploadlimit
-post_max_size = $php_uploadlimit
-expose_php = Off
-mail.add_x_header = Off
-max_input_nesting_level = 128
-max_input_vars = 2000
-mysqlnd.net_cmd_buffer_size = 16384
-always_populate_raw_post_data = -1
-disable_functions = shell_exec
+date.timezone=Asia/Ho_Chi_Minh
+max_execution_time=180
+short_open_tag=On
+realpath_cache_size=$php_realpathlimit
+realpath_cache_ttl=$php_realpathttl
+memory_limit=$php_memorylimit
+upload_max_filesize=$php_uploadlimit
+post_max_size=$php_uploadlimit
+expose_php=Off
+mail.add_x_header=Off
+max_input_nesting_level=128
+max_input_vars=2000
+mysqlnd.net_cmd_buffer_size=16384
+always_populate_raw_post_data=-1
+disable_functions=shell_exec
 END
 
 # Zend Opcache
 wget -q https://raw.github.com/amnuts/opcache-gui/master/index.php -O /home/$server_name/private_html/op.php
 cat > /etc/php.d/*opcache*.ini <<END
-zend_extension=opcache.so
+zend_extension=opcache
 opcache.enable=1
 opcache.enable_cli=1
 opcache.memory_consumption=128
