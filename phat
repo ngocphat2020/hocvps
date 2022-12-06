@@ -103,7 +103,7 @@ yum -y update
 # Install Nginx, PHP-FPM and modules
 
 # Enable Remi Repo
-yum-config-manager --enable remi
+# yum-config-manager --enable remi
 
 # yum-config-manager --disable 'remi-php*'
 # Install PHP7.4
