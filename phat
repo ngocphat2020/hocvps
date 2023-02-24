@@ -556,7 +556,7 @@ fi
 
 sed -i "s/server_name_here/$server_name/g" /etc/my.cnf
 sed -i 's/innodb_support_xa/#innodb_support_xa/g' /etc/my.cnf
-sed -i 's/mariadb-10.0/mariadb-10.10/g' /etc/my.cnf
+sed -i 's/mariadb-10.0/mariadb-10.11/g' /etc/my.cnf
 sed -i 's/innodb_buffer_pool_populate/#innodb_buffer_pool_populate/g' /etc/my.cnf
 
 # Random password for MySQL root account
