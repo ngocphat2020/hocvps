@@ -191,14 +191,14 @@ clear
 function chon_version_php(){
 echo "Bạn hãy lựa chọn phiên bản PHP muốn sử dụng: "
 prompt="Nhap vao lua chon cua ban [1-4]: "
-php_version="8.2"
-options=("Phien ban PHP 8.2" "Phien ban PHP 8.1" "Phien ban PHP 7.4" "Phien ban PHP 5.6")
+php_version="8.3"
+options=("Phien ban PHP 8.3" "Phien ban PHP 8.1" "Phien ban PHP 7.4" "Phien ban PHP 5.6")
 PS3="$prompt"
 select opt in "${options[@]}"; do
 
   case "$REPLY" in
   1)
-    php_version="8.2"
+    php_version="8.3"
     break
     ;;
 
@@ -217,11 +217,11 @@ select opt in "${options[@]}"; do
     ;;
 
   $((${#options[@]} + 1)))
-    printf "\nHe thong se cai dat PHP 8.2\n"
+    printf "\nHe thong se cai dat PHP 8.3\n"
     break
     ;;
   *)
-    printf "Ban nhap sai, he thong cai dat PHP 8.2\n"
+    printf "Ban nhap sai, he thong cai dat PHP 8.3\n"
     break
     ;;
   esac
@@ -230,14 +230,14 @@ done
 }
 
 chon_version_php
-#set mặc định php 8.2 là WordPress mặc định
-#php_version="8.2"
+#set mặc định php 8.3 là WordPress mặc định
+#php_version="8.3"
 
 clear
 
 echo "Bạn hãy lựa chọn phiên bản Maria Database muốn sử dụng: "
 prompt="Nhập vào lựa chọn của bạn [1-4]: "
-mariadb_version="10.6"
+mariadb_version="10.11"
 options=("Phien ban: 11.4" "Phien ban: 10.11" "Phien ban: 10.6" "Phien ban: 10.5")
 PS3="$prompt"
 select opt in "${options[@]}"; do
@@ -322,11 +322,11 @@ fi
 
 
 if [[ $php_version = "" ]];then
-	php_version="8.2"
+	php_version="8.3"
 fi
 
 if [[ $mariadb_version = "" ]];then
-	mariadb_version="10.6"
+	mariadb_version="10.11"
 fi
 
 if [[ $object_cache = "" ]];then
@@ -861,12 +861,12 @@ rpm -Uvh http://rpms.litespeedtech.com/centos/litespeed-repo-1.3-1.el8.noarch.rp
 	su_dung_repo_du_phong=1
 fi
 
-#wget https://openlitespeed.org/packages/openlitespeed-1.8.1-x86_64-linux.tgz
+#wget https://openlitespeed.org/packages/openlitespeed-1.8.3-x86_64-linux.tgz
 #tar -zxvf openlitespeed-*.tgz
 #cd openlitespeed
 #./install.sh
 #sleep 2
-#cd && rm -f openlitespeed-1.8.1-x86_64-linux.tgz
+#cd && rm -f openlitespeed-1.8.3-x86_64-linux.tgz
 #cd && rm -rf openlitespeed
 
 box_out "Hoàn tất cài đặt OpenLiteSpeed"
