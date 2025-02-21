@@ -10,7 +10,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 hocvps_version="2.0.4"
-phpmyadmin_version="5.2.1"
+phpmyadmin_version="5.2.2"
 extplorer_version="2.1.15"
 script_url="https://raw.githubusercontent.com/ngocphat2020/hocvps/main/script_root"
 low_ram='262144' # 256MB
